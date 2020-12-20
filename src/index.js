@@ -43,9 +43,13 @@ function update() {
     requestForAPI.setData(data);
     setTables(data);
     map.updateData(requestForAPI.getCountriesWithLatLonAndCases());
-    RequestForAPI.getHistorical('india').then((history) => {
-      requestForAPI.setData(history);
-      chart.setData(requestForAPI.getHistoricalData());
+    RequestForAPI.getTotal().then((total) => {
+      requestForAPI.setData(total);
+      chart.setData(requestForAPI.getGlobalCases());
+      // RequestForAPI.getHistorical('india').then((history) => {
+      //   requestForAPI.setData(history);
+      //   chart.setData(requestForAPI.getHistoricalData());
+      // });
     });
   });
 }

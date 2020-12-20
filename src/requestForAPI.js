@@ -24,7 +24,7 @@ export default class RequestForAPI {
   }
 
   static async getTotal() {
-    return RequestForAPI.loadData(URLS.Total());
+    return RequestForAPI.loadData(URLS.Total);
   }
 
   setData(data) {
@@ -70,22 +70,36 @@ export default class RequestForAPI {
     });
   }
 
-  getHistoricalData() {
-    const dataTimeline = this.data.timeline;
+  getGlobalCases() {
     const merged = [
-      ...new Set(
-        Object.keys(dataTimeline.cases),
-        Object.keys(dataTimeline.deaths),
-        Object.keys(dataTimeline.recovered)
-      ),
+      ...new Set(Object.keys(this.data.cases), Object.keys(this.data.deaths), Object.keys(this.data.recovered)),
     ];
     return merged.map((el) => {
       return {
         date: new Date(el),
-        cases: dataTimeline.cases[el],
-        deaths: dataTimeline.deaths[el],
-        recovered: dataTimeline.recovered[el],
+        cases: this.data.cases[el],
+        deaths: this.data.deaths[el],
+        recovered: this.data.recovered[el],
       };
     });
   }
+
+  // getHistoricalData() {
+  //   const dataTimeline = this.data.timeline;
+  //   const merged = [
+  //     ...new Set(
+  //       Object.keys(dataTimeline.cases),
+  //       Object.keys(dataTimeline.deaths),
+  //       Object.keys(dataTimeline.recovered)
+  //     ),
+  //   ];
+  //   return merged.map((el) => {
+  //     return {
+  //       date: new Date(el),
+  //       cases: dataTimeline.cases[el],
+  //       deaths: dataTimeline.deaths[el],
+  //       recovered: dataTimeline.recovered[el],
+  //     };
+  //   });
+  // }
 }
