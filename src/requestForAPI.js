@@ -61,6 +61,7 @@ export default class RequestForAPI {
       return {
         cases: this.getDataDependOnToggles(el),
         country: el.country,
+        countryInfo: [el.countryInfo.flag],
       };
     });
   }
@@ -69,6 +70,15 @@ export default class RequestForAPI {
     return this.data.map((el) => {
       return {
         deaths: el.deaths,
+        country: el.country,
+      };
+    });
+  }
+
+  getRecoveredCases() {
+    return this.data.map((el) => {
+      return {
+        recovered: el.recovered,
         country: el.country,
       };
     });

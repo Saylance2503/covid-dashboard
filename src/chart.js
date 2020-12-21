@@ -23,14 +23,14 @@ export default class Charts {
     this.render();
   }
 
-  redraw() {
-    global.document.getElementById('myChart').remove();
-    global.document.querySelector('.content-box__title').innerHTML("<canvas id='myChart'></canvas>");
-    this.render();
-  }
-
   render() {
-    const CHART = global.document.getElementById('myChart').getContext('2d');
+    let CHART = global.document.getElementById('myChart').getContext('2d');
+    global.document.getElementById('myChart').remove();
+    global.document.querySelector('.chart').innerHTML = `<div class="content-box" id="daily"><div class="expand"></div>
+    <span class="content-box__title">Daily Cases</span>
+    <canvas id="myChart" class="chart"></canvas>
+  </div>`;
+    CHART = global.document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(CHART, {
       type: 'line',
       data: {
