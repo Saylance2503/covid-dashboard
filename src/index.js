@@ -19,7 +19,7 @@ function getSortedByCasesData(data) {
 function onClickCountry() {
   const elements = document.getElementById('cases-by-country');
   elements.addEventListener('click', (event) => {
-    console.log(event.target.closest('div').dataset.country); // TODO получили страну, можно использовать
+    return event.target.closest('div').dataset.country; // TODO получили страну, можно использовать
   });
 }
 
@@ -42,9 +42,13 @@ function startApp() {
     requestForAPI.setData(data);
     setTables(data);
     map.updateData(requestForAPI.getCountriesWithLatLonAndCases());
-    RequestForAPI.getHistorical('india').then((history) => {
-      // requestForAPI.setData(history);
-      // chart.setData(requestForAPI.getHistoricalData());
+    RequestForAPI.getTotal().then((total) => {
+      requestForAPI.setTotalData(total);
+      chart.setData(requestForAPI.getGlobalCases());
+      RequestForAPI.getHistorical('USA').then((history) => {
+        requestForAPI.setHistoryData(history);
+        chart.setData(requestForAPI.getHistoricalData());
+      });
     });
   });
 }
