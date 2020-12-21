@@ -23,6 +23,12 @@ export default class Charts {
     this.render();
   }
 
+  redraw() {
+    global.document.getElementById('myChart').remove();
+    global.document.querySelector('.content-box__title').innerHTML("<canvas id='myChart'></canvas>");
+    this.render();
+  }
+
   render() {
     const CHART = global.document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(CHART, {
@@ -32,6 +38,15 @@ export default class Charts {
         datasets: this.chartData,
       },
       options: {
+        legend: {
+          display: true,
+          position: 'top',
+          labels: {
+            fontSize: 14,
+            fontStyle: 'normal',
+            fontColor: '#f1f3fb',
+          },
+        },
         elements: {
           point: {
             radius: 0,
@@ -46,10 +61,25 @@ export default class Charts {
             {
               type: 'time',
               position: 'bottom',
+              ticks: {
+                fontColor: '#f1f3fb',
+                fontSize: 14,
+                fontStyle: 'normal',
+              },
               time: {
                 displayFormats: { month: 'MMM' },
                 tooltipFormat: 'ddd D',
                 unit: 'month',
+              },
+            },
+          ],
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                fontColor: '#f1f3fb',
+                fontSize: 14,
+                fontStyle: 'normal',
               },
             },
           ],

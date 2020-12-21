@@ -16,13 +16,6 @@ function getSortedByCasesData(data) {
   data.sort((a, b) => b.cases - a.cases);
 }
 
-function onClickCountry() {
-  const elements = document.getElementById('cases-by-country');
-  elements.addEventListener('click', (event) => {
-    return event.target.closest('div').dataset.country; // TODO получили страну, можно использовать
-  });
-}
-
 function setTables(data) {
   const global = requestForAPI.getCountriesAndCases();
   table.setGlobalCases(global);
@@ -37,19 +30,26 @@ function setTables(data) {
   table.setCasesByDeaths(deaths);
 }
 
+function updateCharts(selectedCountry) {
+  if (selectedCountry) {
+    RequestForAPI.getHistorical(selectedCountry).then((history) => {
+      requestForAPI.setHistoryData(history);
+      chart.setData(requestForAPI.getHistoricalData());
+    });
+  } else {
+    RequestForAPI.getTotal().then((total) => {
+      requestForAPI.setTotalData(total);
+      chart.setData(requestForAPI.getGlobalCases());
+    });
+  }
+}
+
 function startApp() {
   RequestForAPI.getSummary().then((data) => {
     requestForAPI.setData(data);
     setTables(data);
     map.updateData(requestForAPI.getCountriesWithLatLonAndCases());
-    RequestForAPI.getTotal().then((total) => {
-      requestForAPI.setTotalData(total);
-      chart.setData(requestForAPI.getGlobalCases());
-      RequestForAPI.getHistorical('USA').then((history) => {
-        requestForAPI.setHistoryData(history);
-        chart.setData(requestForAPI.getHistoricalData());
-      });
-    });
+    updateCharts();
   });
 }
 
@@ -82,6 +82,15 @@ function switchButton(btnActive, btnInactive) {
   });
   btnInactive.forEach((btn) => {
     btn.classList.remove('toggle-active');
+  });
+}
+
+function onClickCountry() {
+  const elements = document.getElementById('cases-by-country');
+  elements.addEventListener('click', (event) => {
+    const selectedCountry = event.target.closest('div').dataset.country;
+    updateCharts(selectedCountry);
+    chart.redraw();
   });
 }
 
@@ -139,5 +148,4 @@ function setToggles() {
 startApp();
 setupResizeButtons();
 onClickCountry();
-
 setToggles();

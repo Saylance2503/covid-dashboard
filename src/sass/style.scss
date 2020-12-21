@@ -12,16 +12,17 @@
 }
 
 body {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0;
   line-height: 1.5;
   font-weight: 400;
-  background: #222;
+  background: #252733;
   color: rgb(235, 235, 235);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 h1 {
-  font-size: 18px;
+  color: #ffffff;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -36,8 +37,8 @@ section {
 header,
 footer {
   height: 50px;
-  background: #222;
-  border: 1px solid #ded;
+  background: #2a2f43;
+  border: 1px solid #616ed4;
 }
 
 .container {
@@ -61,15 +62,15 @@ footer {
 .container .map {
   flex: 1;
   margin: 0 0.5rem;
-  background: #222;
+  background: #2a2f43;
   flex-grow: 3;
 }
 .content-box {
   width: 100%;
   height: 100%;
   padding: 0 0.5rem;
-  background: #222;
-  border: 1px solid #ded;
+  background: #2a2f43;
+  border: 1px solid #616ed4;
   &.global {
     height: 10rem;
     margin-bottom: 0.5rem;
@@ -79,6 +80,14 @@ footer {
     height: 100%;
     overflow: auto;
     position: relative;
+  }
+  & .country__table,
+  .deaths__table,
+  .recovered__table {
+    cursor: pointer;
+    &:hover {
+      background-color: #f9b54fcb;
+    }
   }
   &.date {
     height: 5rem;
@@ -133,6 +142,7 @@ footer {
 .content-box#state {
   width: 17em;
   margin-left: 0.25rem;
+  overflow: auto;
   &.expanded {
     width: 100%;
     height: calc(100vh - 165px);
@@ -170,6 +180,10 @@ footer {
 }
 .content-box__title {
   margin-left: 20px;
+  color: #7cb342;
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
 }
 /* CHART */
 .chart {
@@ -186,7 +200,7 @@ footer {
     color: #fff;
 
     &:hover {
-      color: coral;
+      color: #f9b64f;
     }
   }
 }
@@ -235,7 +249,7 @@ footer {
   left: 0;
   display: flex;
   flex-direction: column;
-  background: rgba($color: rgb(27, 27, 27), $alpha: 0.9);
+  background: rgba($color: #252733, $alpha: 0.9);
 
   .toggle-indicator {
     display: flex;
